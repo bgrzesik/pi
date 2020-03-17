@@ -133,31 +133,7 @@ void print_card(int month, int offset)
     int a = 1;
     int days = ndays(month);
 
-    while (a <= ceil(days / 7.0) * 7) {
-        if ((a - 1) % 7 == 0) {
-            printf("\n|");
-        }
-
-        if (a <= offset || a - offset > days) {
-            printf("   |");
-        } else {
-            char *pad = a - offset > 9 ? "" : " ";
-            printf(" %s%d|", pad, a - offset);
-        }
-
-        a++;
-    }
-}
-
-void print_cardt(int month, int offset)
-{
-    printf("\n%s. %s\n", to_roman(month), month_name(month));
-    printf("|Ni |Po |Wt |Sr |Cz |Pt |So |");
-
-    int a = 1;
-    int days = ndays(month);
-
-    while (a <= ceil(days / 7.0) * 7) {
+    while (a <= ceil((days + offset) / 7.0) * 7) {
         if ((a - 1) % 7 == 0) {
             printf("\n|");
         }
@@ -195,7 +171,6 @@ int main(int argc, const char *argv[])
 
     while (month <= 12) {
         print_card(month, offset);
-        print_cardt(month, offset);
         offset = (ndays(month) + offset) % 7;
         month += 1;
     }

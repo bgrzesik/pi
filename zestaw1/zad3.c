@@ -6,17 +6,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, const char *argv[])
+/*
+
+    Argumenty:
+
+        xmin - początek przedziału całki oznaczonej
+        xmax - koniec przedziału całki oznaczonej
+
+        ymin - minimalna wartość całkowanej funkcji w przedziałe
+        ymin - maksymalna wartość całkowanej funkcji w przedziałe
+
+        fun  - wskaźnik do całkowanej funkcji np.
+
+                double sin(double x) { ... }
+
+ */
+double intergral(double xmin, double xmax, double ymin, double ymax, double (*fun)(double))
 {
     double hits = 0.0;
     double prec = 1000000;
-
-    double xmin = 0.0;
-    double xmax = M_PI;
-
-    double ymin = 0.0;
-    double ymax = 1.0;
-
 
     for (int i = 0; i < prec; ++i) {
         double u1 = ((double) rand() / (double) RAND_MAX);
@@ -25,12 +33,15 @@ int main(int argc, const char *argv[])
         double x = xmin + (xmax - xmin) * u1;
         double y = ymin + (ymax - ymin) * u2;
 
-        if (sin(x) > y) {
+        if (fun(x) > y) {
             hits += 1.0;
         }
     }
 
-    double solution = (hits * (xmax - xmin) * (ymax - ymin)) / prec;
+    return (hits * fabs(xmax - xmin) * fabs(ymax - ymin)) / prec;
+}
 
-    printf("Wynik: %lf\n", solution);
+int main(int argc, const char *argv[])
+{
+    printf("Wynik: %lf\n", intergral(0.0, M_PI, 0.0, 1.0, sin));
 }

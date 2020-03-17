@@ -40,17 +40,13 @@ int main(int argc, const char *argv[])
     scanf("%d", &offset);
     offset--;
 
-    printf("\nMiesiac %d\n", month);
-    printf("|Ni |Po |Wt |Sr |Cz |Pt |So |");
-
-
     printf("\nMiesiac. %d\n", month);
     printf("|Ni |Po |Wt |Sr |Cz |Pt |So |");
 
     int a = 1;
     int days = ndays(month);
 
-    while (a <= ceil(days / 7.0) * 7) {
+    while (a <= ceil((days + offset) / 7.0) * 7) {
         if ((a - 1) % 7 == 0) {
             printf("\n|");
         }
