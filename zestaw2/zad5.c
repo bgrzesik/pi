@@ -55,7 +55,7 @@ int main(int argc, const char *argv[])
 
     if (fgets(buf, 100, stdin) == NULL) {
         fprintf(stderr, "Błąd wczytywania ciągu znaku z konsoli\n");
-        exit(1);
+        return 1;
     }
 
     if (check_brackets(buf, 100)) {
